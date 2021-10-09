@@ -8,7 +8,7 @@
         private $hostName = 'localhost';
         private $dbName = 'planificacio_cognitiva';
 
-        function __construct(){
+        public function __construct(){
             
             try{
 
@@ -25,11 +25,60 @@
         }
         
 
-        function disconnect(){
+        public function disconnect(){
             $this->$db = null;
         }
-        
+
+        /**
+         * @throws Exception
+         */
+        private function executeQuery($query = "", $params = []){
+
+            try{
+
+                $stmt = $this->db->prepare($query);
+                if ($stmt == false){
+                    throw new  Exception("No se puede preparar la consulta: " . $query);
+                }
+
+                if($params){
+                    $stmt->bindParam($params[0],$params[1]);
+                }
+
+
+                $stmt->execute();
+                return $stmt;
+
+            }catch(Exception $e){
+                throw  new Exception($e->getMessage());
+            }
+
+        }
+
+
+        /**
+         * @throws Exception
+         */
+        public function select($query = "", $params = []){
+
+
+            try {
+
+                $stmt = $this->executeQuery($query,$params);
+                $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+                $stmt->close();
+
+                return $result;
+
+            }catch (Exception $e){
+                throw new Exception($e->getMessage());
+            }
+            return false;
+            
+
+        }
+
 
     }
 
-?>
+
