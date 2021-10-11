@@ -1,6 +1,6 @@
 <?php
 
-    class connectDB extends PDO{
+    class ConnectDB extends PDO{
         
         private $db;
         private $userName = 'root';
