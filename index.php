@@ -11,7 +11,7 @@
         switch ($action){
 
             case 'loginPatient':
-                //TODO controller patientLogin
+                include  __DIR__ . '/controller/controllerPatientLogin.php';
                 break;
             case 'getPatientActivities':
                 //TODO controller getPatientActivities
