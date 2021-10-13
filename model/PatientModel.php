@@ -11,8 +11,8 @@ class PatientModel {
         $jsonData->patientName = "";
 
 
-
-        $stmt = $conn->prepare("SELECT n_historial_clinic, nom, telefon FROM PACIENTS WHERE n_historial_clinic = :patientId");
+        $stmt = $conn;
+        $stmt = $stmt->prepare("SELECT n_historial_clinic, nom, telefon FROM PACIENTS WHERE n_historial_clinic = :patientId");
         $stmt->bindParam(':patientId',$patientId);
         $stmt->execute();
         $patientExists = $stmt->rowCount();
@@ -34,7 +34,7 @@ class PatientModel {
             $jsonData->patientId = "false";
         }
 
-        return $jsonData;
+        return json_encode($jsonData);
 
     }
 
