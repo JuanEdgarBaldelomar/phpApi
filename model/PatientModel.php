@@ -11,6 +11,7 @@ class PatientModel {
         $jsonData->patientName = "";
 
 
+
         $stmt = $conn->prepare("SELECT n_historial_clinic, nom, telefon FROM PACIENTS WHERE n_historial_clinic = :patientId");
         $stmt->bindParam(':patientId',$patientId);
         $stmt->execute();
